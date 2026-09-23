@@ -1,0 +1,15 @@
+{
+  "slug": "bounded-stream-windowing-late-events",
+  "title": "Bounded In-Memory Stream: Tumbling Windows with Late-Event Grace",
+  "description": "Simulates a bounded in-memory event stream with tumbling windows; compares a no-grace baseline against a watermark-based grace period for handling late sensor readings.",
+  "novelty": "Unlike the TF-IDF tool router (static text classification), this project simulates a temporal event stream requiring time-based windowing, watermark tracking, and late-event reprocessing—a fundamentally different algorithmic domain (single-pass stream computation vs. batch classification with train/test split).",
+  "method": "Algorithm: watermark-based tumbling window processor with a grace period of 1 window_size; late events (event_time < watermark) within grace are re-inserted into their window and the aggregate is recomputed. Baseline: no grace—any event whose event_time falls below the current watermark is dropped permanently. Validation: deterministic in-memory replay of a seeded event stream sorted by arrival time; no train/test split (single-pass processing). Metrics: window_mean_mae (lower=better, MAE of per-window computed means vs ground-truth means), late_retention_rate (higher=better, fraction of late events successfully incorporated), max_window_skew (lower=better, max absolute difference between event count in computed vs true window).",
+  "dependencies": [
+    "numpy"
+  ],
+  "acceptance_tests": [
+    "make_dataset(seed=1, n_samples=64) and make_dataset(seed=2, n_samples=64) produce different X arrays (numpy assert_array_equal fails)",
+    "make_dataset(n_samples=16) raises ValueError for n_samples < 32",
+    "run_experiment algorithm metrics: late_retention_rate >= baseline late_retention_rate AND window_mean_mae <= baseline window_mean_mae (grace period must not worsen either metric)"
+  ]
+}

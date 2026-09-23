@@ -1,0 +1,14 @@
+{
+  "n_samples": 256,
+  "metrics": {
+    "window_mean_mae": 0.012011754050064318,
+    "late_retention_rate": 0.9473684210526315,
+    "max_window_skew": 1.0
+  },
+  "baseline_metrics": {
+    "window_mean_mae": 0.026991261193245495,
+    "late_retention_rate": 0.0,
+    "max_window_skew": 11.0
+  },
+  "explanation": "In-memory simulation of a bounded event stream with tumbling windows (window_size=10.0s). Events are processed in arrival order. The grace-period processor accepts late events (event_time < watermark) if they fall within one window_size of the watermark, re-inserting them into the correct window. The no-grace baseline drops all late events. No train/test split is used; this is a single-pass stream computation. Metrics: window_mean_mae (lower is better), late_retention_rate (higher is better), max_window_skew (lower is better)."
+}

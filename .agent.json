@@ -1,0 +1,14 @@
+{
+  "generator": "qwen-project-factory-v1",
+  "status": "validated",
+  "date": "2026-09-23",
+  "slug": "bounded-stream-windowing-late-events",
+  "description": "Simulates a bounded in-memory event stream with tumbling windows; compares a no-grace baseline against a watermark-based grace period for handling late sensor readings.",
+  "method": "Algorithm: watermark-based tumbling window processor with a grace period of 1 window_size; late events (event_time < watermark) within grace are re-inserted into their window and the aggregate is recomputed. Baseline: no grace\u2014any event whose event_time falls below the current watermark is dropped permanently. Validation: deterministic in-memory replay of a seeded event stream sorted by arrival time; no train/test split (single-pass processing). Metrics: window_mean_mae (lower=better, MAE of per-window computed means vs ground-truth means), late_retention_rate (higher=better, fraction of late events successfully incorporated), max_window_skew (lower=better, max absolute difference between event count in computed vs true window).",
+  "category": "Real-time data processing: bounded in-memory stream, windowing and late events",
+  "model": "Qwen/Qwen3.8-27B",
+  "model_revision": "1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0",
+  "precision": "bfloat16",
+  "thinking": true,
+  "bundle_sha256": "b686cdccb8e488e5c32978fcfb199137f22e4b7f45c18edd41f09ded16294489"
+}
